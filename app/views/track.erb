@@ -1,0 +1,71 @@
+var _track = _track || [];
+(function() {
+  _track = {
+    campaigns: <%= JSON(campaigns) %>,
+    campaign_hit_hash: '<%= campaign_hit_hash %>',
+    image: new Image(),
+    track: function() {
+      // go through all campaigns and find the source parameter in the url
+      for (var i = this.campaigns.length - 1; i >= 0; i--) {
+        var c = this.campaigns[i]
+          , p = [c['parameter_name'], c['parameter_value']];
+
+        // ToDo: source=billiger also matches source=billigerde
+        if (window.location.search.indexOf(p.join('=')) != -1) {
+          // set cookie
+          this.setCookie('_monkey', this.getHitHash(), c['cookie_lifetime'] * 60 * 60 * 24);
+          // call to image
+          this.image.src = this.url(c);
+          break;
+        }
+      };
+    },
+    getHitHash: function() {
+      // use the already set cookie or set a new cookie
+      return this.getCookie('_monkey') || this.campaign_hit_hash;
+    },
+    setCookie: function(name, value, expires) {
+      var date
+        , cookie = '';
+      if (expires) {
+        date = new Date();
+        date.setTime(date.getTime() + (expires * 1000));
+        cookie = '; expires=' + date.toGMTString();
+      }
+      document.cookie = name + '=' + escape(value) + cookie + ';path=/';
+    },
+    getCookie: function(name) {
+      var name_equal = name + '='
+        , cookies = document.cookie.split(';')
+        , cookie;
+      for (var i = cookies.length - 1; i >= 0; i--) {
+        cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') {
+          cookie = cookie.substring(1, cookie.length);
+        }
+        if (cookie.indexOf(name_equal) == 0) {
+          return unescape(cookie.substring(name_equal.length, cookie.length));
+        }
+      }
+      return null;
+    },
+    url: function (campaign) {
+      var url = this.$('_monkey-tracker').getAttribute('src');
+      url = this.getLocation(url).href.split('/');
+      url.pop();
+      url.push(campaign['campaign_hash'], this.getHitHash() + '.gif')
+      return url.join('/');
+    },
+    getLocation: function (href) {
+      var a = document.createElement('a');
+      a.href = href;
+      return a;
+    },
+    $: function (id) {
+      if (document.getElementById)
+        return document.getElementById(id);
+      return null;
+    }
+  };
+  _track.track();
+}).call();

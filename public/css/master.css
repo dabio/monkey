@@ -1,0 +1,93 @@
+/* =Typography
+-----------------------------------------------------------------------------*/
+@font-face {
+  font-family: 'broccolidry';
+  src:url('/fonts/broccolidry.eot');
+  src:url('fonts/broccolidry.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/broccolidry.svg#broccolidry') format('svg'),
+    url('/fonts/broccolidry.woff') format('woff'),
+    url('/fonts/broccolidry.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+  font-family: 'broccolidry';
+  content: attr(data-icon);
+  speak: none;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: 'broccolidry';
+  font-style: normal;
+  speak: none;
+  font-weight: normal;
+  padding-right: 4px;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-pencil:before {
+  content: "\21";
+}
+.icon-detail:before {
+  content: "\22";
+}
+.icon-plus:before {
+  content: "\2b";
+}
+.icon-floppy:before {
+  content: "\25";
+}
+.icon-cancel:before {
+  content: "\78";
+}
+.icon-envelope:before {
+  content: "\23";
+}
+
+.icons {
+  font-family: 'broccolidry';
+  font-style: normal;
+  speak: none;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+
+}
+
+/* =Links
+-----------------------------------------------------------------------------*/
+
+
+/* =Layout
+-----------------------------------------------------------------------------*/
+.container {
+	width: 740px;
+	padding: 0 10px;
+	margin: 24px auto;
+}
+
+#projects td a:not(:last-of-type)::after { content: ", "; }
+
+section { margin: 4em 0; }
+
+/* =Header
+-----------------------------------------------------------------------------*/
+
+
+/* =Nav
+-----------------------------------------------------------------------------*/
+nav.secondary { text-align: right; }
+
+
+/* =Misc
+-----------------------------------------------------------------------------*/
+table a { text-decoration: none; }
+
+/* =Footer
+-----------------------------------------------------------------------------*/

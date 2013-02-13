@@ -1,0 +1,24 @@
+<section id="project">
+
+  <form class="forms columnar" action="<%= project.new? ? Project.createlink : project.savelink %>" method="post">
+    <% unless project.new? %>
+      <input type="hidden" name="_method" value="put">
+    <% end %>
+    <ul>
+      <li>
+        <label class="bold" for="title">Titel <span class="req">*</span></label>
+        <input id="title" class="width-50" type="text" name="project[title]" value="<%= project.title %>" required>
+      </li>
+      <li class="form-section"></li>
+      <li class="push">
+        <% if project.new? %>
+          <input class="btn icon-floppy" type="submit" value="Anlegen">
+        <% else %>
+          <input class="btn icon-floppy" type="submit" value="Speichern">
+          <a class="red delete" href="<%= project.deletelink %>" data-method="delete" data-confirm="Projekt löschen? Alle zugehörigen Kampagnen werden ebenfalls entfernt." rel="nofollow">Projekt löschen</a>
+        <% end %>
+      </li>
+    </ul>
+  </form>
+
+</section>

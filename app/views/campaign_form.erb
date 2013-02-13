@@ -1,0 +1,51 @@
+<section id="campaign">
+
+  <form class="forms columnar" action="<%= campaign.new? ? Campaign.createlink(campaign.project) : campaign.savelink %>" method="post">
+    <% unless campaign.new? %>
+      <input type="hidden" name="_method" value="put">
+    <% end %>
+    <ul>
+      <li>
+        <label class="bold" for="title">Titel <span class="req">*</span></label>
+        <input id="title" class="width-50" type="text" name="campaign[title]" value="<%= campaign.title %>" required>
+      </li>
+      <li>
+        <label class="bold" for="cookie_lifetime">Cookie Laufzeit <span class="req">*</span></label>
+        <input id="cookie_lifetime" type="text" name="campaign[cookie_lifetime]" value="<%= campaign.cookie_lifetime %>" placeholder="30" size="3" required>
+        <span class="descr">in Tagen</span>
+      </li>
+      <li class="form-section">Parameter</li>
+      <li>
+        <label class="bold" for="parameter_name">Name <span class="req">*</span></label>
+        <input id="parameter_name" type="text" name="campaign[parameter_name]" value="<%= campaign.parameter_name %>" placeholder="source" required>
+        <span class="descr">?<strong>name</strong>=wert</span>
+      </li>
+      <li>
+        <label class="bold" for="parameter_value">Wert <span class="req">*</span></label>
+        <input id="parameter_value" type="text" name="campaign[parameter_value]" value="<%= campaign.parameter_value %>" placeholder="billiger" required>
+        <span class="descr">?name=<strong>wert</strong></span>
+      </li>
+      <li class="form-section">Affiliate Script</li>
+      <li>
+        <fieldset>
+          <section>
+            <label class="bold" for="script_template">Script</label>
+          </section>
+          <textarea id="script_template" class="width-100" name="campaign[script_template]" style="height: 187px"><%= campaign.script_template %></textarea>
+          <span class="descr">Hier das Javascript des Affiliates einfügen.</a>
+
+        </fieldset>
+      </li>
+      <li class="form-section"></li>
+      <li class="push">
+        <% if campaign.new? %>
+          <input class="btn icon-floppy" type="submit" value="Anlegen">
+        <% else %>
+          <input class="btn icon-floppy" type="submit" value="Speichern">
+          <a class="red delete" href="<%= campaign.deletelink %>" data-method="delete" data-confirm="Kampagne löschen?" rel="nofollow">Kampagne löschen</a>
+        <% end %>
+      </li>
+    </ul>
+  </form>
+
+</section>
