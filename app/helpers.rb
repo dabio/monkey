@@ -25,7 +25,7 @@ module Monkey
       # Returns the current domain name
       def domain
         domain = request.host
-        domain << ":#{request.port}" unless [80, 433].include?(request.port)
+        domain << ":#{request.port}" unless [80, 443].include?(request.port)
         domain
       end
     end
