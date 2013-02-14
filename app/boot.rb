@@ -30,6 +30,7 @@ module Monkey
   class App < Sinatra::Base
 
     configure do
+      disable :sessions
       set :root, ROOT_DIR
       set :public_folder, "#{ROOT_DIR}/../public"
     end
