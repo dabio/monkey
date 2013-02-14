@@ -1,0 +1,11 @@
+<% if defined? breadcrumbs  %>
+<nav id="breadcrumbs">
+  <% for crumb in breadcrumbs %>
+    <% if crumb[:href] %>
+      <a href="<%= crumb[:href] %>" title="<%= crumb[:title] %>"><%= crumb[:title] %></a>
+    <% else %>
+      <span><%= crumb[:title] %></span>
+    <% end %>
+  <% end %>
+</nav>
+<% end %>

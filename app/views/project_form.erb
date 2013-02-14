@@ -1,3 +1,9 @@
+<% if project.new? %>
+  <%= erb :_breadcrumbs, locals: { breadcrumbs: [{ title: 'Projekte', href: Project.link }, { title: 'Anlegen' }] } %>
+<% else %>
+  <%= erb :_breadcrumbs, locals: { breadcrumbs: [{ title: 'Projekte', href: Project.link }, { title: project.title, href: project.link }, { title: 'Bearbeiten' }] } %>
+<% end %>
+
 <section id="project">
 
   <form class="forms columnar" action="<%= project.new? ? Project.createlink : project.savelink %>" method="post">
@@ -15,7 +21,6 @@
           <input class="btn icon-floppy" type="submit" value="Anlegen">
         <% else %>
           <input class="btn icon-floppy" type="submit" value="Speichern">
-          <a class="red delete" href="<%= project.deletelink %>" data-method="delete" data-confirm="Projekt löschen? Alle zugehörigen Kampagnen werden ebenfalls entfernt." rel="nofollow">Projekt löschen</a>
         <% end %>
       </li>
     </ul>

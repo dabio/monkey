@@ -72,22 +72,56 @@ body {
 	margin: 24px auto;
 }
 
-#projects td a:not(:last-of-type)::after { content: ", "; }
-
-section { margin: 4em 0; }
+/*#projects td a:not(:last-of-type)::after { content: ", "; }*/
 
 /* =Header
 -----------------------------------------------------------------------------*/
-
+h3 a {
+  text-decoration: none;
+}
+h3 a:hover:after {
+  content: "»";
+  margin-left: .4em;
+}
 
 /* =Nav
 -----------------------------------------------------------------------------*/
+nav#breadcrumbs { margin-bottom: 2em; }
+nav#breadcrumbs a { text-decoration: none; }
+nav#breadcrumbs a:after { content: " › "; }
+
 nav.secondary { text-align: right; }
+
+nav.toolbar {
+  text-align: right;
+}
+nav.toolbar a {
+  margin-left: 1em;
+  text-decoration: none;
+}
+
+thead form {
+  display: inline;
+  float: right;
+  margin-bottom: 0;
+}
 
 
 /* =Misc
 -----------------------------------------------------------------------------*/
-table a { text-decoration: none; }
+table a {
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.right { text-align: right; }
+.center { text-align: center; }
+
+tr .initially-hidden { visibility: hidden }
+tr:hover .initially-hidden { visibility: visible }
+
+td .icons { margin-left: 1em; }
+
 
 /* =Footer
 -----------------------------------------------------------------------------*/

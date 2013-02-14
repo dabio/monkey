@@ -4,33 +4,54 @@
     <h2 class="threequarter">Projekte</h2>
     <nav class="quarter secondary">
       <form action="<%= Project.createlink %>" method="post">
-        <button class="btn btn-square icon-plus">Projekt anlegen</button>
+        <button class="btn icon-plus">Neues Projekt</button>
       </form>
     </nav>
   </header>
 
-  <table class="width-100 striped">
+  <% if projects.each do |project| %>
 
-    <thead>
-      <tr>
-        <th colspan="2">Projekte</th>
-      </tr>
-    </thead>
+    <h3>
+      <a href="<%= project.link %>" title="<%= project.title %>"><%= project.title %></a>
+    </h3>
 
-    <tbody>
-      <% for project in projects %>
+    <table class="width-100 striped">
+
+      <thead>
         <tr>
-          <td>
-            <a href="<%= project.link %>" title="Kampagnen"><%= project.title %> »</a>
-          </td>
-          <td>
-            <a class="icons" href="<%= project.editlink %>" title="Projekt bearbeiten">&#x21;</a>
-          </td>
-          </td>
+          <th>Kampagne</th>
+          <th class="center">Besucher</th>
         </tr>
-      <% end %>
-    </tbody>
+      </thead>
 
-  </table>
+      <tbody>
+
+        <% if project.campaigns.each do |campaign| %>
+
+          <tr>
+            <td>
+              <a href="<%= campaign.link %>" title="<%= campaign.title %>"><%= campaign.title %> »</a>
+            </td>
+            <td class="center"><%= campaign.campaign_hits.count %></td>
+          </tr>
+
+        <% end.empty? %>
+
+          <tr>
+            <td colspan="2">Noch keine Kampagne vorhanden.</td>
+          </tr>
+
+        <% end %>
+
+      </tbody>
+
+    </table>
+
+
+  <% end.empty? %>
+
+    <p>Noch kein Projekt vorhanden.</p>
+
+  <% end %>
 
 </section>

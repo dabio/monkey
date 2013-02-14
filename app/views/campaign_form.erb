@@ -1,3 +1,9 @@
+<% if campaign.new? %>
+  <%= erb :_breadcrumbs, locals: { breadcrumbs: [{ title: 'Projekte', href: Project.link }, { title: campaign.project.title, href: campaign.project.link }, { title: 'Anlegen' }] } %>
+<% else %>
+  <%= erb :_breadcrumbs, locals: { breadcrumbs: [{ title: 'Projekte', href: Project.link }, { title: campaign.project.title, href: campaign.project.link }, { title: campaign.title, href: campaign.link }, { title: 'Bearbeiten' }] } %>
+<% end %>
+
 <section id="campaign">
 
   <form class="forms columnar" action="<%= campaign.new? ? Campaign.createlink(campaign.project) : campaign.savelink %>" method="post">

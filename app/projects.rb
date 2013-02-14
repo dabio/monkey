@@ -30,7 +30,7 @@ module Monkey
       project = Project.new(params[:project])
 
       if project.save
-        redirect to('/'), success: 'Projekt erfolgreich erstellt'
+        redirect to(Project.link, true, false), success: 'Projekt erfolgreich erstellt'
       else
         project.errors.clear! unless params[:project]
         erb :project_form, locals: { project: project }
@@ -41,7 +41,7 @@ module Monkey
     # GET /projects/:id
     #
     get '/:id' do |id|
-      erb :campaigns, locals: { project: Project.get(id) }
+      erb :project, locals: { project: Project.get(id) }
     end
 
     #
@@ -58,7 +58,7 @@ module Monkey
       project = Project.get(id)
 
       if project.update(params[:project])
-        redirect to(Project.link, true, false), success: 'Projekt erfolgreich gespeichert'
+        redirect to(project.link, true, false), success: 'Projekt erfolgreich gespeichert'
       else
         erb :project_form, locals: { project: project }
       end
@@ -93,7 +93,7 @@ module Monkey
     #
     get '/:id/campaigns/:id' do |id, campaign_id|
       not_found unless campaign = Campaign.get(campaign_id)
-      erb :hits, locals: {
+      erb :campaign, locals: {
         campaign: campaign,
         campaign_hits: campaign.campaign_hits(limit: 10, order: [:updated_at.desc])
       }
@@ -113,7 +113,7 @@ module Monkey
       campaign = Campaign.get(campaign_id)
 
       if campaign.update(params[:campaign])
-        redirect to(campaign.project.link, true, false), success: 'Kampagne erfolgreich gespeichert'
+        redirect to(campaign.link, true, false), success: 'Kampagne erfolgreich gespeichert'
       else
         erb :campaign_form, locals: { campaign: campaign }
       end

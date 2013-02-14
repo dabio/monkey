@@ -1,0 +1,50 @@
+<%= erb :_breadcrumbs, locals: { breadcrumbs: [{ title: 'Projekte', href: Project.link }, { title: campaign.project.title, href: campaign.project.link }, { title: campaign.title } ] } %>
+
+<section id="campaign" class="row">
+
+  <h3 class="half"><%= campaign.title %></h3>
+
+  <nav class="half toolbar">
+
+    <a class="icons green initially-hidden" href="<%= campaign.editlink %>" title="Kampagne bearbeiten">&#x21;</a>
+    <a class="icons red delete initially-hidden" href="<%= campaign.deletelink %>" data-method="delete" data-confirm="Kampagne löschen?" rel="nofollow" title="Kampagne löschen">&#x78;</a>
+  </nav>
+
+</section>
+
+<section id="campaign-hits" class="row">
+
+  <table class="width-100 striped">
+
+    <thead>
+      <tr>
+        <th>Erstbesuch</th>
+        <th colspan="2">Letzter Besuch</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <% if campaign_hits.each do |hit| %>
+
+        <tr>
+          <td><%= hit.created_at %></td>
+          <td><%= hit.updated_at %></td>
+          <td class="right">
+            <a class="initially-hidden icons red delete" href="<%= hit.deletelink %>" data-method="delete" data-confirm="Eintrag löschen?" rel="nofollow" title="Eintrag löschen">&#x78;</a>
+          </td>
+        </tr>
+
+      <% end.empty? %>
+
+        <tr>
+          <td colspan="3">Noch keine Besucher in dieser Kampagne.</td>
+        </tr>
+
+      <% end %>
+
+    </tbody>
+
+  </table>
+
+</section>
