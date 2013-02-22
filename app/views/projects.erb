@@ -32,7 +32,7 @@
             <td>
               <a href="<%= campaign.link %>" title="<%= campaign.title %>"><%= campaign.title %> »</a>
             </td>
-            <td class="center"><%= campaign.campaign_hits.count %></td>
+            <td class="center"><%= CampaignHit.all(campaign: campaign).count %></td>
           </tr>
 
         <% end.empty? %>
