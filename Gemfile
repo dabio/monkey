@@ -13,7 +13,7 @@ gem 'sinatra', require: 'sinatra/base'
 gem 'sinatra-r18n', require: 'sinatra/r18n'
 gem 'sinatra-flash-nicer', require: 'sinatra/flash'
 gem 'sinatra-redirect-with-flash', require: 'sinatra/redirect_with_flash'
-gem 'thin', require: false
+gem 'puma', require: false
 
 group :development do
   gem 'shotgun', require: false
