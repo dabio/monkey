@@ -3,17 +3,19 @@ migration 2, :order_table_creation do
   up do
 
     create_table :orders do
-      column :id,           Integer, serial: true
-      column :order_id,     String, size: 20
-      column :total,        Float
-      column :currency,     String, size: 10
-      column :quantity,     Integer
-      column :created_at,   DateTime
-      column :updated_at,   DateTime
+      column :id,               Integer, serial: true
+      column :order_id,         String, size: 20
+      column :total,            Float
+      column :currency,         String, size: 10
+      column :quantity,         Integer
+      column :campaign_hit_id,  Integer
+      column :created_at,       DateTime
+      column :updated_at,       DateTime
     end
     create_index :orders, :order_id, unique: true
     create_index :orders, :total
     create_index :orders, :quantity
+    create_index :orders, :campaign_hit_id
 
     create_table :order_items do
       column :id,         Integer, serial: true

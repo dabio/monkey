@@ -5,24 +5,38 @@ var _track = _track || [];
     campaign_hit_hash: '<%= campaign_hit_hash %>',
     image: new Image(),
     track: function() {
-      // go through all campaigns and find the source parameter in the url
+      var campaign = this.getCampaignFromUrl();
+      if (!campaign) return;
+      // set cookie
+      this.setCookie('_monkey', this.getHitHash(), campaign['cookie_lifetime'] * 60 * 60 * 24);
+      this.image.src = this.getTrackingUrl(campaign);
+    },
+    getCampaignFromUrl: function() {
       for (var i = this.campaigns.length - 1; i >= 0; i--) {
-        var c = this.campaigns[i]
-          , p = [c['parameter_name'], c['parameter_value']];
-
+        var campaign = this.campaigns[i]
+          , p = [campaign['parameter_name'], campaign['parameter_value']];
         // ToDo: source=billiger also matches source=billigerde
         if (window.location.search.indexOf(p.join('=')) != -1) {
-          // set cookie
-          this.setCookie('_monkey', this.getHitHash(), c['cookie_lifetime'] * 60 * 60 * 24);
-          // call to image
-          this.image.src = this.url(c);
-          break;
+          return campaign;
         }
       };
+      return null;
     },
     getHitHash: function() {
       // use the already set cookie or set a new cookie
       return this.getCookie('_monkey') || this.campaign_hit_hash;
+    },
+    getTrackingUrl: function(campaign) {
+      var url = this.$('_monkey-tracker').getAttribute('src');
+      url = this.getLocation(url).href.split('/');
+      url.pop();
+      url.push(campaign['campaign_hash'], this.getHitHash() + '.gif');
+      return url.join('/');
+    },
+    getLocation: function (href) {
+      var a = document.createElement('a');
+      a.href = href;
+      return a;
     },
     setCookie: function(name, value, expires) {
       var date
@@ -49,23 +63,48 @@ var _track = _track || [];
       }
       return null;
     },
-    url: function (campaign) {
-      var url = this.$('_monkey-tracker').getAttribute('src');
-      url = this.getLocation(url).href.split('/');
-      url.pop();
-      url.push(campaign['campaign_hash'], this.getHitHash() + '.gif')
-      return url.join('/');
-    },
-    getLocation: function (href) {
-      var a = document.createElement('a');
-      a.href = href;
-      return a;
+    removeCookie: function(name) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     },
     $: function (id) {
       if (document.getElementById)
         return document.getElementById(id);
       return null;
+    },
+
+    getOrderUrl: function() {
+      var url = this.$('_monkey-tracker').getAttribute('src');
+      url = this.getLocation(url).href.split('/');
+      url.pop();url.pop();
+      url.push('order', this.getHitHash() + '.gif');
+      return url.join('/');
+    },
+    order: function() {
+      var cookie = this.getCookie('_monkey')
+        , query = []
+        , i = 0
+        , param, key, value;
+
+      // first check for a cookie and for the _monkey array
+      if (!cookie || !_monkey instanceof Array || _monkey.length < 4) return;
+
+      // get every part of the array and escape it
+      while (param = _monkey.shift()) {
+        if (param instanceof Array && param.length == 2) {  // Arrays
+          query.push('order['+param[0]+']=' + escape(param[1]));
+        } else if (param instanceof Object) {               // Hashes
+          for (key in param) {
+            query.push('order['+i+']['+key+']=' + escape(param[key]));
+          }
+          i++;
+        }
+      }
+
+      this.image.src = this.getOrderUrl() + '?' + query.join('&');
+      // remove cookie
+      //this.removeCookie('_monkey');
     }
   };
-  _track.track();
+
+  (typeof _monkey != 'undefined') ? _track.order() : _track.track();
 }).call();

@@ -10,6 +10,7 @@ class Order < Base
   property :quantity, Integer
   timestamps :at
 
+  belongs_to :campaign_hit
   has n, :order_items
 
 end

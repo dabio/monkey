@@ -3,8 +3,8 @@
 class OrderItem < Base
   include DataMapper::Resource
 
-  property :id,               Serial
-  property :parameter,        Text
+  property :id,         Serial
+  property :parameter,  Text
   timestamps :at
 
   belongs_to :order

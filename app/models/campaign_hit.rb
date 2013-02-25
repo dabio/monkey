@@ -9,6 +9,7 @@ class CampaignHit < Base
 
   # associations
   belongs_to :campaign
+  has n, :orders
 
   # default ordering
   default_scope(:default).update(order: [:created_at.desc, :id])
