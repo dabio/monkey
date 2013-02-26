@@ -95,7 +95,8 @@ module Monkey
       not_found unless campaign = Campaign.get(campaign_id)
       erb :campaign, locals: {
         campaign: campaign,
-        campaign_hits: campaign.campaign_hits(limit: 10, order: [:updated_at.desc])
+        campaign_hits: CampaignHit.all(campaign: campaign, limit: 10, order: [:updated_at.desc]),
+        orders: Order.all(campaign: campaign, limit: 10, order: [:updated_at.desc]),
       }
     end
 

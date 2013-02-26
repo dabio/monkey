@@ -76,7 +76,7 @@ var _track = _track || [];
       var url = this.$('_monkey-tracker').getAttribute('src');
       url = this.getLocation(url).href.split('/');
       url.pop();url.pop();
-      url.push('order', this.getHitHash() + '.gif');
+      url.push('track-order', this.getHitHash() + '.gif');
       return url.join('/');
     },
     order: function() {
@@ -94,7 +94,7 @@ var _track = _track || [];
           query.push('order['+param[0]+']=' + escape(param[1]));
         } else if (param instanceof Object) {               // Hashes
           for (key in param) {
-            query.push('order['+i+']['+key+']=' + escape(param[key]));
+            query.push('order['+i+']['+key+']=' + escape(encodeURIComponent(param[key])));
           }
           i++;
         }

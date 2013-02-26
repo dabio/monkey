@@ -14,28 +14,16 @@ class CampaignHit < Base
   # default ordering
   default_scope(:default).update(order: [:created_at.desc, :id])
 
-  def created_at_formatted(format='%-d. %b %y')
+  def created_at_formatted(format='%-d. %b %y, %H:%M')
     R18n::l(created_at, format)
   end
 
-  def updated_at_formatted(format='%-d. %b %y')
+  def updated_at_formatted(format='%-d. %b %y, %H:%M')
     R18n::l(updated_at, format)
   end
 
   def link
     [self.class.link(campaign), id].join('/')
-  end
-
-  def editlink
-    [link, 'edit'].join('/')
-  end
-
-  def deletelink
-    link
-  end
-
-  def savelink
-    link
   end
 
   class << self

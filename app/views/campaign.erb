@@ -12,6 +12,47 @@
 
 </section>
 
+<section id="orders" class="row">
+
+  <table class="width-100 striped">
+
+    <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Order</th>
+        <th class="center">Summe</th>
+        <th class="center">Menge</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <% if orders.each do |order| %>
+
+        <tr>
+          <td><%= order.created_at_formatted %></td>
+          <td><%= order.order_id %></td>
+          <td class="center"><%= order.total_formatted %></td>
+          <td class="center"><%= order.quantity %></td>
+          <td class="center"><a class="icons" href="<%= order.link %>" title="Order anzeigen">&#x22;</a></td>
+        </tr>
+
+      <% end.empty? %>
+
+        <tr>
+          <td colspan="5">Noch keine Verkäufe durch diese Kampagne.</td>
+        </tr>
+
+      <% end %>
+
+    </tbody>
+
+  </table>
+
+</section>
+
+
 <section id="campaign-hits" class="row">
 
   <table class="width-100 striped">
@@ -28,8 +69,8 @@
       <% if campaign_hits.each do |hit| %>
 
         <tr>
-          <td><%= hit.created_at %></td>
-          <td><%= hit.updated_at %></td>
+          <td><%= hit.created_at_formatted %></td>
+          <td><%= hit.updated_at_formatted %></td>
           <td class="right">
             <a class="initially-hidden icons red delete" href="<%= hit.deletelink %>" data-method="delete" data-confirm="Eintrag löschen?" rel="nofollow" title="Eintrag löschen">&#x78;</a>
           </td>

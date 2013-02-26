@@ -18,6 +18,7 @@
     <thead>
       <tr>
         <th>Kampagne</th>
+        <th class="center">Verkäufe</th>
         <th class="center">Besucher</th>
         <th class="right">
           <form action="<%= Campaign.createlink(project) %>" method="post">
@@ -35,6 +36,7 @@
           <td>
             <a href="<%= campaign.link %>" title="<%= campaign.title %>"><%= campaign.title %> »</a>
           </td>
+          <td class="center"><%= Order.all(campaign: campaign).count %></td>
           <td class="center"><%= CampaignHit.all(campaign: campaign).count %></td>
           <td></td>
         </tr>

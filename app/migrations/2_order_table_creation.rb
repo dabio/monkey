@@ -8,6 +8,7 @@ migration 2, :order_table_creation do
       column :total,            Float
       column :currency,         String, size: 10
       column :quantity,         Integer
+      column :campaign_id,      Integer
       column :campaign_hit_id,  Integer
       column :created_at,       DateTime
       column :updated_at,       DateTime
@@ -15,6 +16,7 @@ migration 2, :order_table_creation do
     create_index :orders, :order_id, unique: true
     create_index :orders, :total
     create_index :orders, :quantity
+    create_index :orders, :campaign_id
     create_index :orders, :campaign_hit_id
 
     create_table :order_items do

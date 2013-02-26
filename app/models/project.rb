@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'securerandom'
 
-class Project
+class Project < Base
   include DataMapper::Resource
 
   property :id,           Serial
@@ -31,32 +31,8 @@ class Project
     SecureRandom.urlsafe_base64(24, true)
   end
 
-  def link
-    [self.class.link, id].join('/')
-  end
-
-  def editlink
-    [link, 'edit'].join('/')
-  end
-
-  def deletelink
-    link
-  end
-
-  def savelink
-    link
-  end
-
-  class << self
-
-    def link
-      '/projects'
-    end
-
-    def createlink
-      self.link
-    end
-
+  def self.link
+    '/projects'
   end
 
 end

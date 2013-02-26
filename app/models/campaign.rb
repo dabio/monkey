@@ -15,6 +15,7 @@ class Campaign < Base
   # associations
   belongs_to :project
   has n, :campaign_hits
+  has n, :orders
 
   # default ordering
   default_scope(:default).update(order: [:title, :id])
