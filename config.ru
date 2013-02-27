@@ -6,6 +6,8 @@ run Rack::URLMap.new({
   # Backend
   '/' => Monkey::App,
   '/projects' => Monkey::Projects,
+  '/campaigns' => Monkey::Campaigns,
+  '/hits' => Monkey::Hits,
   '/orders' => Monkey::Orders,
 
   # Tracking

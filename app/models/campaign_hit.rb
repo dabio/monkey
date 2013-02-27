@@ -22,19 +22,8 @@ class CampaignHit < Base
     R18n::l(updated_at, format)
   end
 
-  def link
-    [self.class.link(campaign), id].join('/')
+  def self.link
+    '/hits'
   end
 
-  class << self
-
-    def link(campaign)
-      [campaign.link, 'hits'].join('/')
-    end
-
-    def createlink(campaign)
-      self.link(campaign)
-    end
-
-  end
 end

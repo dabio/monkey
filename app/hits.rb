@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Monkey
-  class Orders < App
+  class Hits < App
 
     configure do
       enable :sessions
@@ -15,6 +15,17 @@ module Monkey
 
     register Sinatra::Flash
     register Sinatra::R18n
+
+    #
+    # DELETE /hits/:id
+    #
+    delete '/:id' do |id|
+      hit = CampaignHit.get(id)
+      campaign = hit.campaign
+      hit.destroy
+      flash[:success] = 'Besuch erfolgreich entfernt'
+      to(campaign.link, true, false)
+    end
 
   end
 end

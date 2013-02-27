@@ -32,30 +32,14 @@ class Campaign < Base
     end
   end
 
-  def link
-    [self.class.link(project), id].join('/')
-  end
-
-  def editlink
-    [link, 'edit'].join('/')
-  end
-
-  def deletelink
-    link
-  end
-
-  def savelink
-    link
-  end
-
   class << self
 
-    def link(project)
-      [project.link, 'campaigns'].join('/')
+    def link
+      '/campaigns'
     end
 
     def createlink(project)
-      self.link(project)
+      [project.link, 'campaigns'].join('/')
     end
 
   end

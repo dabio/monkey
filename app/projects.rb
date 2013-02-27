@@ -74,7 +74,7 @@ module Monkey
     end
 
     #
-    # GET /projects/:project_id
+    # POST /projects/:id/campaigns
     #
     post '/:id/campaigns' do |id|
       campaign = Campaign.new(params[:campaign])
@@ -86,56 +86,6 @@ module Monkey
         campaign.errors.clear! unless params[:campaign]
         erb :campaign_form, locals: { campaign: campaign }
       end
-    end
-
-    #
-    # GET /projects/:id/campaigns/:id
-    #
-    get '/:id/campaigns/:id' do |id, campaign_id|
-      not_found unless campaign = Campaign.get(campaign_id)
-      erb :campaign, locals: {
-        campaign: campaign,
-        campaign_hits: CampaignHit.all(campaign: campaign, limit: 10, order: [:updated_at.desc]),
-        orders: Order.all(campaign: campaign, limit: 10, order: [:updated_at.desc]),
-      }
-    end
-
-    #
-    # GET /projects/:id/campaigns/:id/edit
-    #
-    get '/:id/campaigns/:id/edit' do |id, campaign_id|
-      erb :campaign_form, locals: { campaign: Campaign.get(campaign_id) }
-    end
-
-    #
-    # PUT /projects/:id/campaigns/:id
-    #
-    put '/:id/campaigns/:id' do |id, campaign_id|
-      campaign = Campaign.get(campaign_id)
-
-      if campaign.update(params[:campaign])
-        redirect to(campaign.link, true, false), success: 'Kampagne erfolgreich gespeichert'
-      else
-        erb :campaign_form, locals: { campaign: campaign }
-      end
-    end
-
-    #
-    # DELETE /projects/:id/campaigns/:id
-    #
-    delete '/:id/campaigns/:id' do |id, campaign_id|
-      Campaign.get(campaign_id).destroy
-      flash[:success] = 'Kampagne erfolgreich entfernt'
-      to(Project.get(id).link, true, false)
-    end
-
-    #
-    # DELETE /projects/:id/campaigns/:id/hits/:id
-    #
-    delete '/:id/campaigns/:id/hits/:id' do |id, campaign_id, hit_id|
-      CampaignHit.get(hit_id).destroy
-      flash[:success] = 'Eintrag gelöscht'
-      to(Campaign.get(campaign_id).link, true, false)
     end
 
   end
