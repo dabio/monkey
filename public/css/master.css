@@ -122,6 +122,12 @@ tr:hover .initially-hidden { visibility: visible }
 
 td .icons { margin-left: 1em; }
 
+.descr li {
+  display: inline;
+}
+.descr li:not(:last-of-type)::after {
+  content: ", ";
+}
 
 /* =Footer
 -----------------------------------------------------------------------------*/

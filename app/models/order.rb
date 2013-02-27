@@ -3,6 +3,8 @@
 class Order < Base
   include DataMapper::Resource
 
+  # please also add the defined properties in the class method
+  # "fields" below
   property :id,       Serial
   property :order_id, String, length: 20, required: true
   property :total,    Float, required: true
@@ -25,8 +27,14 @@ class Order < Base
     R18n::l(total)
   end
 
-  def self.link
-    '/orders'
+  class << self
+    def fields
+      ['order_id', 'total', 'currency', 'quantity']
+    end
+
+    def link
+      '/orders'
+    end
   end
 
 end

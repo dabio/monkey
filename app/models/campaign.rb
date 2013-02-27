@@ -32,6 +32,10 @@ class Campaign < Base
     end
   end
 
+  def order_fields
+    Order.fields
+  end
+
   class << self
 
     def link

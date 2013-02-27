@@ -76,14 +76,21 @@ var _track = _track || [];
       var url = this.$('_monkey-tracker').getAttribute('src');
       url = this.getLocation(url).href.split('/');
       url.pop();url.pop();
-      url.push('track-order', this.getHitHash() + '.gif');
+      url.push('track-order', this.getHitHash() + '.html');
       return url.join('/');
+    },
+    getIframe: function(src) {
+      var iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.style.display = 'none';
+      return iframe;
     },
     order: function() {
       var cookie = this.getCookie('_monkey')
         , query = []
         , i = 0
-        , param, key, value;
+        , param, key, value
+        , body = document.getElementsByTagName('body')[0];
 
       // first check for a cookie and for the _monkey array
       if (!cookie || !_monkey instanceof Array || _monkey.length < 4) return;
@@ -100,7 +107,9 @@ var _track = _track || [];
         }
       }
 
-      this.image.src = this.getOrderUrl() + '?' + query.join('&');
+      body.parentNode.insertBefore(
+        this.getIframe(this.getOrderUrl() + '?' + query.join('&'))
+      );
       // remove cookie
       //this.removeCookie('_monkey');
     }

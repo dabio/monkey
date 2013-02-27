@@ -8,8 +8,7 @@ module Monkey
     #
     # GET /track/[A-Za-z0-9\-_=]{32}.gif
     #
-    get %r{/([A-Za-z0-9\-_=]{32})\.gif} do |hit_hash|
-      content_type 'image/gif'
+    get %r{/([A-Za-z0-9\-_=]{32})\.html} do |hit_hash|
       not_found unless hit = CampaignHit.first(hit_hash)
 
       # Create the order
@@ -30,7 +29,7 @@ module Monkey
         end
       end
 
-      File.read(File.join('public', 'images', 'order.gif'))
+      #erb hit.campaign.script_template, locals: { order: order }, layout: false
     end
 
   end
