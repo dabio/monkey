@@ -3,7 +3,7 @@
 module Monkey
   class TrackOrder < App
 
-    use Rack::Protection, :except => :session_hijacking
+    use Rack::Protection, :except => [:session_hijacking, :http_origin]
 
     #
     # GET /track/[A-Za-z0-9\-_=]{32}.gif
