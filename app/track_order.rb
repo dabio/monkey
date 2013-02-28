@@ -29,7 +29,7 @@ module Monkey
         end
       end
 
-      #erb hit.campaign.script_template, locals: { order: order }, layout: false
+      erb hit.campaign.script_template, locals: { order: order }, layout: false
     end
 
   end
