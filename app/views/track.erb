@@ -24,7 +24,8 @@ var _track = _track || [];
     },
     getHitHash: function() {
       // use the already set cookie or set a new cookie
-      return this.getCookie('_monkey') || this.campaign_hit_hash;
+      //return this.getCookie('_monkey') || this.campaign_hit_hash;
+      return this.campaign_hit_hash;
     },
     getTrackingUrl: function(campaign) {
       var url = this.$('_monkey-tracker').getAttribute('src');
