@@ -4,7 +4,7 @@ module Monkey
   class TrackOrder < App
 
     # Add whitelist for http-origin here
-    use Rack::Protection, :except => [:session_hijacking, :http_origin]
+    use Rack::Protection, :except => [:session_hijacking, :frame_options]
 
     #
     # GET /track/[A-Za-z0-9\-_=]{32}.gif
