@@ -1,0 +1,57 @@
+<%= erb :_breadcrumbs, locals: { breadcrumbs: [{ title: 'Projekte', href: Project.link }, { title: order.campaign.project.title, href: order.campaign.project.link }, { href: order.campaign.link , title: order.campaign.title }, { title: order.order_id } ] } %>
+
+<section id="order" class="row">
+
+  <h3 class="half"><%= order.order_id %></h3>
+
+  <nav class="half toolbar">
+
+    <a class="icons red delete initially-hidden" href="<%= order.deletelink %>" data-method="delete" data-confirm="Order löschen?" rel="nofollow" title="Order löschen">&#x78;</a>
+  </nav>
+
+</section>
+
+<section id="order-items" class="row">
+
+  <table class="width-100 striped">
+
+    <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Order</th>
+        <th class="center">Summe</th>
+        <th>Währung</th>
+        <th class="center">Artikel</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><%= order.created_at_formatted %></td>
+        <td><%= order.order_id %></td>
+        <td class="center"><%= order.total_formatted %></td>
+        <td><%= order.currency %></td>
+        <td class="center"><%= order.quantity %></td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <table class="width-100 simple">
+
+    <caption>Parameter</caption>
+
+    <tbody>
+      <% order.order_items.each do |item| %>
+        <tr>
+          <td>
+            <pre class="prettyprint"><%= item.parameter_formatted %></pre>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+
+</section>

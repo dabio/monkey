@@ -9,4 +9,8 @@ class OrderItem < Base
 
   belongs_to :order
 
+  def parameter_formatted
+    JSON.pretty_generate JSON.parse(parameter)
+  end
+
 end

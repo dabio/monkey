@@ -16,5 +16,24 @@ module Monkey
     register Sinatra::Flash
     register Sinatra::R18n
 
+    #
+    # GET /orders/:id
+    #
+    get '/:id' do |id|
+      not_found unless order = Order.get(id)
+      erb :order, locals: { order: order }
+    end
+
+    #
+    # DELETE /orders/:id
+    #
+    delete '/:id' do |id|
+      order = Order.get(id)
+      campaign = order.campaign
+      order.destroy
+      flash[:success] = 'Order erfolgreich entfernt'
+      to(campaign.link, true, false)
+    end
+
   end
 end

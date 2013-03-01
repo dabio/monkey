@@ -19,6 +19,13 @@ class Order < Base
   # default ordering
   default_scope(:default).update(order: [:created_at, :id])
 
+  before :destroy do |o|
+    # deletes all affiliated order items of this order
+    o.order_items.each do |oi|
+      oi.destroy
+    end
+  end
+
   def created_at_formatted(format='%-d. %b %y, %H:%M')
     R18n::l(created_at, format)
   end
