@@ -3,7 +3,9 @@
 module Monkey
   class Track < App
 
-    use Rack::Protection, :except => :session_hijacking
+    configure do
+      set :protection, :except => :session_hijacking
+    end
 
     #
     # GET /track/[A-Za-z0-9\-_=]{32}.js
