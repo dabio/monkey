@@ -109,7 +109,8 @@ var _track = _track || [];
       }
 
       body.parentNode.insertBefore(
-        this.getIframe(this.getOrderUrl() + '?' + query.join('&'))
+        this.getIframe(this.getOrderUrl() + '?' + query.join('&')),
+        null
       );
       // remove cookie
       this.removeCookie('_monkey');
