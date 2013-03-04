@@ -8,10 +8,10 @@ module Monkey
     end
 
     #
-    # GET /track/[A-Za-z0-9\-_=]{32}.gif
+    # GET /track-order/[A-Za-z0-9\-_=]{32}.html
     #
     get %r{/([A-Za-z0-9\-_=]{32})\.html} do |hit_hash|
-      not_found unless hit = CampaignHit.first(hit_hash)
+      not_found unless hit = CampaignHit.first(campaign_hit_hash: hit_hash)
 
       # Create the order
       order = Order.new(campaign_hit: hit, campaign: hit.campaign)
