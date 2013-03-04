@@ -91,7 +91,7 @@ var _track = _track || [];
         , query = []
         , i = 0
         , param, key, value
-        , body = document.getElementsByTagName('body')[0];
+        , body = document.body || document.getElementsByTagName('body')[0];
 
       // first check for a cookie and for the _monkey array
       if (!cookie || !_monkey instanceof Array || _monkey.length < 4) return;
@@ -108,9 +108,9 @@ var _track = _track || [];
         }
       }
 
-      body.parentNode.insertBefore(
+      body.insertBefore(
         this.getIframe(this.getOrderUrl() + '?' + query.join('&')),
-        null
+        body.childNodes[body.childNodes.length-1]
       );
       // remove cookie
       this.removeCookie('_monkey');
