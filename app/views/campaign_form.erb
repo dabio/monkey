@@ -37,7 +37,7 @@
           <section>
             <label class="bold" for="script_template">Script</label>
           </section>
-          <textarea id="script_template" class="width-100" name="campaign[script_template]" style="height: 187px"><%= campaign.script_template %></textarea>
+          <textarea id="script_template" class="width-100" name="campaign[script_template]" style="height: 187px"><%= h campaign.script_template %></textarea>
           <span class="descr">Hier das Javascript des Affiliates einfügen. Folgende Platzhalter stehen zur Verfügung</span>
           <ul class="descr">
             <% campaign.order_fields.each do |field| %>

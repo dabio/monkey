@@ -7,6 +7,9 @@ module Monkey
     helpers Sinatra::RedirectWithFlash
 
     helpers do
+      include Rack::Utils
+      alias_method :h, :escape_html
+
       # This gives us the currently logged in user. We keep track of that by just
       # setting a session variable with their is. If it doesn't exist, we want to
       # return nil.
