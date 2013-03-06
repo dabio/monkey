@@ -9,6 +9,7 @@ run Rack::URLMap.new({
   '/campaigns' => Monkey::Campaigns,
   '/hits' => Monkey::Hits,
   '/orders' => Monkey::Orders,
+  '/users' => Monkey::Users,
 
   # Tracking
   '/track' => Monkey::Track,

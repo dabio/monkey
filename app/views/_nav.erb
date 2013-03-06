@@ -1,0 +1,17 @@
+<% if has_auth? %>
+  <header id="header" class="row container">
+
+    <nav class="primary threequarter">
+      <a href="<%= Project.link %>">Projekte</a>
+      <% if has_admin? %>
+        <a href="<%= User.link %>">Nutzer</a>
+      <% end %>
+    </nav>
+
+    <nav class="primary quarter" style="text-align: right">
+      <a href="<%= current_person.editlink %>">Einstellungen</a>
+      <a href="/logout">Abmelden</a>
+    </nav>
+
+  </header>
+<% end %>

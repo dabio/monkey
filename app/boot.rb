@@ -55,8 +55,8 @@ end
 
 Dir[
   './app/helpers.rb',
-  './app/app.rb',
-  './app/*.rb'
+  './app/controllers/app.rb',
+  './app/controllers/*.rb'
 ].each do |f|
   require f
 end

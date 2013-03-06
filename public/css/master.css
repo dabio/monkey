@@ -86,6 +86,15 @@ h3 a:hover:after {
 
 /* =Nav
 -----------------------------------------------------------------------------*/
+nav.primary a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+nav.primary a:not(:last-of-type) {
+  margin-right: 7px;
+}
+
 nav#breadcrumbs { margin-bottom: 2em; }
 nav#breadcrumbs a { text-decoration: none; }
 nav#breadcrumbs a:after { content: " › "; }
@@ -127,6 +136,27 @@ td .icons { margin-left: 1em; }
 }
 .descr li:not(:last-of-type)::after {
   content: ", ";
+}
+
+.success, .errors {
+  margin-left: 0;
+  padding: 8px 14px;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.success {
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+  color: #468847;
+}
+
+.errors {
+  background-color: #f2dede;
+  border: 1px solid #eed3d7;
+  color: #b94a48;
+}
+.errors li {
+  list-style: none;
 }
 
 /* =Footer

@@ -17,6 +17,13 @@ module Monkey
     register Sinatra::R18n
 
     #
+    # Disallow this area for non authorized users.
+    #
+    before do
+      not_found unless has_auth?
+    end
+
+    #
     # GET /projects
     #
     get '/' do
