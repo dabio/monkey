@@ -20,18 +20,19 @@ module Monkey
     # GET /
     #
     get '/' do
-      redirect to('/login')
+      redirect to('/projects')
     end
 
     before '/login' do
       redirect to('/projects') if has_auth?
+      @to = params[:to] ? params[:to] : '/projects'
     end
 
     #
     # GET /login
     #
     get '/login' do
-      erb :login, locals: { email: '' }
+      erb :login, locals: { email: '', to: @to }
     end
 
     #
@@ -43,9 +44,9 @@ module Monkey
       user = User.authenticate(params[:email], params[:password])
       if user
         session[:user_id] = user.id
-        redirect to('/projects')
+        redirect to(params[:to], true, false)
       else
-        erb :login, locals: { email: params[:email] }
+        erb :login, locals: { email: params[:email], to: @to }
       end
     end
 

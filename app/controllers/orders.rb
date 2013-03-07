@@ -20,7 +20,7 @@ module Monkey
     # Disallow this area for non authorized users.
     #
     before do
-      not_found unless has_auth?
+      authorize!
     end
 
     #

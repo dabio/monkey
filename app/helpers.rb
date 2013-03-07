@@ -36,6 +36,13 @@ module Monkey
         domain << ":#{request.port}" unless [80, 443].include?(request.port)
         domain
       end
+
+      # checks for authorized user and redirects to the login page if user
+      # is not authorized.
+      def authorize!
+        redirect to("/login?to=#{request.path}", true, false) unless has_auth?
+      end
+
     end
   end
 end
