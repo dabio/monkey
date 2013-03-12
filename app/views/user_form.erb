@@ -2,35 +2,51 @@
 
   <%= erb :_errors, locals: { item: user } %>
 
-  <form class="forms columnar" action="<%= user.new? ? User.createlink : user.savelink %>" method="post">
+  <form class="forms columnar" action="<%= user.new? ? User.createlink : user.savelink %>" method="post" autocomplete="off">
     <% unless user.new? %>
       <input type="hidden" name="_method" value="put">
     <% end %>
     <ul>
+
       <li>
         <label class="bold" for="name">Name</label>
         <input id="name" class="width-33" type="text" name="user[name]" value="<%= user.name %>">
       </li>
+
       <li>
         <label class="bold" for="email">E-Mail <span class="req">*</span></label>
         <input id="email" class="width-33" type="email" name="user[email]" value="<%= user.email %>">
       </li>
+
       <li class="form-section">Kennwort</li>
+
       <% unless user.new? %>
         <li class="push"><p class="gray-light">Kennwort ändern. Nur ausfüllen, wenn Kennwort geändert werden soll.</p></li>
       <% end %>
+
       <li>
         <label class="bold" for="password">Kennwort</label>
         <input id="password" type="password" name="user[password]"/>
       </li>
+
       <li>
         <label class="bold" for="password_confirmation">Wiederholung</label>
         <input id="password_confirmation" type="password" name="user[password_confirmation]"/>
       </li>
+
+      <% if user.projects.count > 0 %>
+        <li class="form-section">Projekte</li>
+        <% user.projects.each do |project| %>
+          <p><%= project.title %></p>
+        <% end %>
+      <% end %>
+
       <li class="form-section"></li>
+
       <li class="push">
         <input class="btn icon-floppy" type="submit" value="<%= user.new? ? 'Anlegen' : 'Speichern' %>"/>
       </li>
+
     </ul>
   </form>
 
