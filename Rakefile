@@ -9,18 +9,51 @@ begin
 rescue LoadError
 end
 
+###############
+# Development #
+###############
+
+desc "Same as rake watch"
+task :default => :watch
+
+desc "Watch the site and regenerate when it changes"
+task :watch => [:install] do
+  puts "Starting application."
+  pids = [
+    spawn('bundle exec shotgun'),
+    #spawn('bundle exec sass --style compressed --scss --watch _assets:css')
+  ]
+
+  trap 'INT' do
+    Process.kill 'INT', *pids
+    exit 1
+  end
+
+  loop do
+    sleep 1
+  end
+end
+
+###############
+# Un-/Install #
+###############
+
+desc 'Installs all dependencies for running locally'
+task :install do
+    `bundle install --binstubs --path vendor/gems --without production`
+end
+
+desc 'Uninstalls all rubygems and temp files'
+task :uninstall do
+    rm_rf ['Gemfile.lock', 'vendor/', 'bin/', '.bundle/']
+end
+
+###############
+# Migrations  #
+###############
+
 task :env do
   require './app/boot'
-end
-
-desc 'Open an irb session preloaded with this library'
-task :console do
-  `irb -rubygems -r ./app/boot`
-end
-
-desc 'Removes all installed gems'
-task :cleanup do
-  `rm -fr bin/ vendor/ .bundle/ Gemfile.lock`
 end
 
 task :load_migrations => :env do

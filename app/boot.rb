@@ -13,7 +13,7 @@ Bundler.require(:default, RACK_ENV)
 
 # PostgreSQL
 DataMapper::Logger.new($stdout, :debug) if RACK_ENV == 'development'
-DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://dan@localhost/monkey')
+DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://dan:dan@localhost/monkey')
 
 Dir[
   './lib/**/*.rb',
